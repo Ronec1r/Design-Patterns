@@ -1,0 +1,36 @@
+@startuml
+skinparam ClassBackgroundColor white
+interface Arquivo <<Service Interface>> {
+    + criar()
+    + recuperar(): String
+    + escrever(String)
+    + remover()
+}
+
+class ArquivoReal <<Service>> implements Arquivo {
+    - nome: String
+    + criar()
+    + recuperar(): String
+    + escrever(String)
+    + remover()
+}
+
+class ArquivoProxy <<Proxy>> implements Arquivo {
+    - arquivo: ArquivoReal
+    - permissao: Permissao
+    + criar()
+    + recuperar(): String
+    + escrever(String)
+    + remover()
+}
+
+class Permissao {
+    - escrita: boolean
+    - leitura: boolean
+    + podeLer(): boolean
+    + podeEscrever(): boolean
+}
+
+ArquivoProxy o-r-> ArquivoReal : delega
+ArquivoProxy -l-> Permissao : verifica
+@enduml

@@ -1,0 +1,20 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor  white
+skinparam NoteBackgroundColor white
+actor Cliente as cliente
+participant "HollowKnight" as hk
+participant "Plataforma (PC)" as pc
+
+cliente -> hk ++: andar(true)
+	hk -> hk ++: moverDireita(15)
+		hk -> pc ++: animar(origem, destino)
+		note right
+			cálculo a partir
+			dos FPS da plataforma
+		end note
+		return List<Ponto>
+	return List<Ponto>
+return List<Ponto>
+
+@enduml

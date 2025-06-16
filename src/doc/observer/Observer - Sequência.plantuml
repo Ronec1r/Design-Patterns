@@ -1,0 +1,59 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+skinparam CollectionsBackgroundColor white
+
+actor Sistema as sistema
+participant Produto as produto
+collections Cliente as clientes
+
+sistema -> produto **: new Produto()
+
+== Compra direta ==
+
+loop para cada cliente interessado
+	activate clientes
+		clientes -> produto ++: estaDisponivel()
+		return resposta
+	
+		alt produto indisponivel
+			clientes -> produto ++: inscrever(cliente)
+				produto -> produto ++: adicionarObservador(cliente)
+				deactivate produto
+			deactivate produto
+		else produto disponivel
+		 	clientes -> clientes ++: comprarProduto(produto)
+		 		clientes -> produto ++: remover(1)
+		 		deactivate produto
+		 		
+		 		clientes -> clientes ++: adicionarPedido(produto)
+		 		deactivate clientes
+		 	deactivate clientes
+		end
+	deactivate clientes 
+end
+
+== Compra via notificação ==
+
+sistema -> produto ++: adicionar(10)
+	produto -> produto ++: estaDisponivel()
+	return resposta
+	
+	alt produto disponivel
+	 	produto -> produto ++: notificar()
+	 	
+	 		loop para cada observador
+	 			produto -> clientes ++: atualizar(produto)
+	 				clientes -> clientes ++: comprarProduto(produto)
+		 				clientes -> produto ++: remover(1)
+		 				deactivate produto
+		 		
+		 				clientes -> clientes ++: adicionarPedido(produto)
+		 				deactivate clientes
+		 			deactivate clientes
+		 		deactivate clientes
+	 		end
+	 	deactivate produto
+	end
+deactivate produto
+@enduml

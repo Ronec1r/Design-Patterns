@@ -1,0 +1,35 @@
+@startuml
+skinparam ClassBackgroundColor white
+interface Plataforma <<Implementation>> {
+    + animar(Ponto, Ponto): List<Ponto>
+}
+
+class Ponto {
+	- double: x
+	- double: y
+}
+
+class NintendoSwitch <<Concrete Implementation>> implements Plataforma
+class XBoxSeriesX <<Concrete Implementation>> implements Plataforma
+class Playstation5 <<Concrete Implementation>> implements Plataforma
+class PC <<Concrete Implementation>> implements Plataforma
+
+abstract class ObjetoGrafico <<Abstraction>>{
+    - posicao: Ponto
+    - plataforma: Plataforma
+    + moverDireita(): List<Ponto>
+    + moverEsquerda(): List<Ponto>
+}
+
+class HollowKnight extends ObjetoGrafico {
+    - impulso: double
+    - velocidade: double
+    + andar(): List<Ponto>
+    + correr(): List<Ponto>
+    + pular(): List<Ponto>
+}
+
+ObjetoGrafico o-r-> Plataforma : usa >
+ObjetoGrafico *-l-> Ponto: posicionado > 
+
+@enduml

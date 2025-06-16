@@ -1,0 +1,30 @@
+@startuml
+skinparam ClassBackgroundColor white
+interface Flyweight {
+    + mostrar(): String
+}
+
+class TipoBloco <<Intrinsec State>> implements Flyweight {
+    - nome: String
+    - quebravel: boolean
+    - inflamavel: boolean
+    - empilhavel: boolean
+    + mostrar(): String
+}
+
+class Bloco <<Extrinsec State>> {
+    - x: int
+    - y: int
+    - z: int
+    - tipo: TipoBloco
+    + mostrar(): String
+}
+
+class FabricaBlocos <<Flyweight Factory>>{
+    - mapaBlocos: Map<String, TipoBloco>
+    + obterTipo(): TipoBloco
+}
+
+Bloco -u-> TipoBloco : usa
+FabricaBlocos -r-> TipoBloco : cria/gerencia
+@enduml

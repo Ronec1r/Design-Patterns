@@ -1,0 +1,30 @@
+@startuml
+skinparam ClassBackgroundColor white
+skinparam NoteBackgroundColor white
+
+together {
+	abstract class Componente <<Component>> {
+    	- nome: String
+    	+ {abstract} calcularPreco(): double
+	}
+	note left of Componente::calcularPreco()
+		método abstrato
+	end note
+	
+	class Item <<Leaf>> {
+	    - valor: double
+	    + calcularPreco(): double
+	}
+}
+class Combo <<Composite>>  {
+    - componentes: List<Componente>
+    + adicionar(Componente)
+    + remover(Componente)
+    + obter(int): Componente
+    + calcularPreco(): double
+}
+
+Componente <|-d- Item
+Componente <|-d- Combo
+Combo o-d- "*" Componente : contém
+@enduml

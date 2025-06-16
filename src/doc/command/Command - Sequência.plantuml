@@ -1,0 +1,33 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Usuário as usuario
+participant ControleRemoto as controle
+participant LigarTV as ligarTV
+participant DesligarTV as desligarTV
+
+participant Televisao as TV
+
+usuario -> ligarTV **: new LigarTV(televisao)
+usuario -> controle ++: definirComando(ligarTV)
+deactivate
+
+usuario -> controle ++: pressionarBotao()
+	controle -> ligarTV ++: executar()
+		ligarTV -> TV ++: ligar()
+		deactivate TV
+	deactivate ligarTV
+deactivate controle
+
+usuario -> desligarTV **: new DesligarTV(televisao)
+usuario -> controle ++: definirComando(desligarTV)
+deactivate
+
+usuario -> controle ++: pressionarBotao()
+	controle -> desligarTV ++: executar()
+		desligarTV -> TV ++: desligar()
+		deactivate TV
+	deactivate desligarTV
+deactivate controle
+@enduml

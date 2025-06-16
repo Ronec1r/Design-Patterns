@@ -1,0 +1,74 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+skinparam NoteBackgroundColor white
+
+actor Cliente as cliente
+participant "Bebida: Café" as cafe
+participant "Bebida: Chá" as cha
+participant "Bebida: Cappuccino" as cappuccino
+
+cliente -> cafe ++: obterPreparo()
+	cafe -> cafe ++: prepararXicara()
+	return "Preparar xícara"
+	note left
+		Etapa padronizada.
+	end note
+	
+	cafe -> cafe ++: prepararIngredientes()
+	return "Adicionar uma colher de café"
+
+	note left
+		**Etapa personalizada.**
+	end note
+
+	cafe -> cafe ++: prepararAguaQuente()
+	return "Adicionar água quente"
+	note left
+		Etapa padronizada.
+	end note
+return Lista completa de preparo
+
+
+cliente -> cha ++: obterPreparo()
+	cha -> cha ++: prepararXicara()
+	return "Preparar xícara"
+	note left
+		Etapa padronizada.
+	end note
+	
+	cha -> cha ++: prepararIngredientes()
+	return "Adicionar um sachê de chá"
+	note left
+		**Etapa personalizada.**
+	end note
+	
+	cha -> cha ++: prepararAguaQuente()
+	return "Adicionar água quente"
+	note left
+		Etapa padronizada.
+	end note
+return Lista completa de preparo
+
+cliente -> cappuccino ++: obterPreparo()
+	cappuccino -> cappuccino ++: prepararXicara()
+	return "Preparar xícara"
+	note left
+		Etapa padronizada.
+	end note
+	
+	cappuccino -> cappuccino ++: prepararIngredientes()
+	return "Adicionar uma colher de café\n Adicionar uma colher de leite em pó\n Adicionar uma colher de chocolate em pó"
+
+	note left
+		**Etapa personalizada.**
+	end note
+
+	cappuccino -> cappuccino ++: prepararAguaQuente()
+	return "Adicionar água quente"
+	note left
+		Etapa padronizada.
+	end note
+return Lista completa de preparo
+
+@enduml

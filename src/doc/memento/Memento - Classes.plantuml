@@ -1,0 +1,28 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+class Jogo <<Originator>> {
+    - saude: int
+    - vidas: int
+    + salvar(): Memento
+    + restaurar(Memento): void
+    + causarDano(int): void
+}
+
+class Memento <<Memento>> {
+    - saude: int
+    - vidas: int
+    + getSaude(): int
+    + getVidas(): int
+}
+
+class Armazenador <<Care Taker>> {
+    - mementos: List<Memento>
+    + armazenar(Memento): void
+    + recuperar(): Memento
+    + recuperarHistorico(): String
+}
+
+Jogo -r-> Memento : cria
+Armazenador o-l-> Memento : armazena
+@enduml

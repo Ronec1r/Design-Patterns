@@ -1,0 +1,41 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "TemaClaro" as fabrica
+participant "JanelaClara" as janela
+participant "BotaoClaro" as botao
+participant "MenuClaro" as menu
+
+participant "TemaEscuro" as fabrica2
+participant "JanelaEscura" as janela2
+participant "BotaoEscuro" as botao2
+participant "MenuEscuro" as menu2
+
+' Fábrica do tema CLARO
+cliente -> fabrica ++: criarJanela()
+	fabrica -> janela **: new JanelaClara()
+return JanelaClara
+
+cliente -> fabrica ++: criarBotao()
+	fabrica -> botao **: new BotaoClaro()
+return BotaoClaro
+
+cliente -> fabrica ++: criarMenu()
+	fabrica -> menu **: new MenuClaro()
+return MenuClaro
+
+' Fábrica do tema ESCURO
+cliente -> fabrica2 ++: criarJanela()
+	fabrica2 -> janela2 **: new JanelaEscura()
+return JanelaEscura
+
+cliente -> fabrica2 ++: criarBotao()
+	fabrica2 -> botao2 **: new BotaoEscuro()
+return BotaoEscuro
+
+cliente -> fabrica2 ++: criarMenu()
+	fabrica2 -> menu2 **: new MenuEscuro()
+return MenuEscuro
+@enduml

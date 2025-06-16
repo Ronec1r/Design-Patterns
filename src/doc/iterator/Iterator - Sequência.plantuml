@@ -1,0 +1,28 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+skinparam CollectionsBackgroundColor white
+
+actor Cliente as cliente
+participant "PlaylistMusicas" as playlist
+participant "IteradorMusicas" as iterador
+collections "Musicas" as musicas
+
+cliente -> playlist ++: criarIterador()
+	playlist -> iterador **: new()
+return IteradorArtistas
+
+cliente -> iterador ++: temProximo()
+return resposta
+
+loop resposta == true
+	
+	cliente -> iterador ++: proximo()
+		iterador -> musicas ++: getMusica()
+		return musica
+	return musica
+	
+	cliente -> iterador ++: temProximo()
+	return resposta
+end
+@enduml

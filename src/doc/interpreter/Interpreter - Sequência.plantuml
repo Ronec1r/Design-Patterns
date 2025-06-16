@@ -1,0 +1,29 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Teste as T
+participant "ExpressaoCondicional" as EC
+participant "ExpressaoMaior<LocalTime>" as EM
+participant "Variavel<horaAtual>" as VH
+participant "Variavel<horaProgramada>" as VP
+participant "ExpressaoSequencial" as ES
+participant "Executavel(LigarLuz)" as EL
+participant "Executavel(LigarTV)" as ET
+
+T -> EC: expCondicional.interpretar()
+EC -> EM: interpretar()
+EM -> VH: getValor() = 18:01
+EM -> VP: getValor() = 18:00
+EM --> EM: 18:01 > 18:00 → true
+EM --> EC: true
+EC -> ES: interpretar()
+loop Para cada Executavel em ES
+    ES -> EL: interpretar()
+    EL -> EL: contexto.executar() → liga luz
+    ES -> ET: interpretar()
+    ET -> ET: contexto.executar() → liga TV
+end
+ES --> EC: true
+EC --> T: true (dispositivos ligados)
+@enduml

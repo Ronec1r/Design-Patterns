@@ -1,0 +1,25 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "FabricaBlocos" as fabrica
+participant "TipoBloco: Madeira" as tipo
+participant "Bloco" as bloco
+
+
+cliente -> fabrica ++: obterTipo("Madeira", true, true, true)
+alt não contém tipo
+	fabrica -> tipo **: new TipoBloco(...)
+	fabrica -> fabrica ++: armazenarTipo(tipoBloco)
+	deactivate
+end
+	fabrica -> fabrica ++: obterTipo(...)
+	return tipoBloco
+ 
+return TipoBloco
+
+cliente -> bloco **: new Bloco(10, 20, 30, tipoBloco)
+cliente -> bloco ++: mostrar()
+return "tipo: Madeira..., x: 10, y: 20, z: 30"
+@enduml

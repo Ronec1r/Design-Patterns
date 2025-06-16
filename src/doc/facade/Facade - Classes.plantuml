@@ -1,0 +1,48 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+class Fachada <<Facade>> {
+    + registrarCliente()
+    + registrarProduto()
+    + escolherProduto()
+    + fecharCompra()
+    + listarPedidos()
+}
+
+class Repositorio<G> {
+    - dados: Map<String, G>
+    + criar()
+    + remover()
+    + recuperar()
+}
+
+class GeradorID {
+    + gerarClienteID(): String
+    + gerarProdutoID(): String
+    + gerarPedidoID(): String
+}
+
+class Cliente {
+    - id: String
+    - nome: String
+    - pedido: Pedido
+}
+
+class Pedido {
+    - id: String
+    - produtos: List<Produto>
+    + valorTotal(): double
+}
+
+class Produto {
+    - id: String
+    - nome: String
+    - preco: double
+}
+
+Fachada --> Repositorio
+Fachada --> GeradorID
+Fachada --> Cliente
+Fachada --> Pedido
+Fachada --> Produto
+@enduml

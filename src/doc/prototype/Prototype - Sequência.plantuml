@@ -1,0 +1,12 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam participantBackgroundColor white
+
+actor Cliente as cliente
+participant "RoboTanque (original)" as original
+participant "RoboTanque (clone)" as clone
+
+cliente -> original ++: clonar()
+	original -> clone **: new RoboTanque(...)
+return clone
+@enduml

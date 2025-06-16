@@ -1,0 +1,22 @@
+@startuml
+skinparam ClassBackgroundColor white
+skinparam NoteBackgroundColor white
+
+class MestreMagos << Singleton >> {
+    - static instancia: MestreMagos
+    - nome: String
+    - nivelMagia: int
+    - MestreMagos()
+    + static obterInstancia(): MestreMagos
+    + elevarNivel()
+    + getNome(): String
+    + setNome(String)
+    + getNivelMagia(): int
+    + setNivelMagia(int)
+}
+note left of MestreMagos::MestreMagos()
+	construtor privado
+end note
+
+MestreMagos -> MestreMagos : instancia
+@enduml

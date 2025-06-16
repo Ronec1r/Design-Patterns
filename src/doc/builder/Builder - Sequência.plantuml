@@ -1,0 +1,27 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "Loja" as loja
+participant "ConstrutorComputador" as builder
+participant "Computador" as computador
+
+cliente -> loja ++: construirNotebookGamer()
+	loja -> builder: definirProcessador("Core i7-13650HX")
+	loja -> builder: definirRAM(16)
+	loja -> builder: definirArmazenamento(1024)
+	loja -> builder ++: obterResultado()
+		builder -> computador **: new Computador(...)
+	return instância de Computador
+return Computador configurado
+
+cliente -> loja ++: construirNotebookUltra()
+	loja -> builder: definirProcessador("Core Ultra 7 155H")
+	loja -> builder: definirRAM(32)
+	loja -> builder: definirArmazenamento(1024)
+	loja -> builder ++: obterResultado()
+		builder -> computador **: new Computador(...)
+	return instância de Computador
+return Computador configurado
+@enduml

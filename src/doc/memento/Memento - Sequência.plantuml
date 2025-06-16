@@ -1,0 +1,90 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Jogador as jogador
+participant Jogo as jogo
+participant Memento as memento
+participant Armazenador as armazenador
+
+
+jogador -> jogo **: new Jogo()
+activate jogo
+	jogo -> jogo ++: setVidas(3)
+	deactivate
+
+	jogo -> jogo ++: setSaude(100)
+	deactivate
+deactivate
+
+jogador -> jogo ++: salvar()
+	jogo -> memento **: new Memento(this)
+	activate memento
+	
+		memento -> jogo ++: getVidas()
+		return vidas
+		
+		memento -> memento ++: setVidas(vidas)
+		deactivate
+		
+		memento -> jogo ++: getSaude()
+		return saude
+		
+		memento -> memento ++: setSaude(saude)
+		deactivate
+	deactivate
+		
+return memento
+
+jogador -> armazenador ++: armazenar(memento)
+	armazenador -> armazenador ++: addMemento(memento)
+	deactivate
+deactivate
+
+
+jogador -> jogo ++: causarDano(70)
+	jogo -> jogo ++: setSaude(-70)
+	deactivate
+deactivate
+
+jogador -> jogo ++: getSaude()
+return 30
+
+jogador -> jogo ++: getVidas()
+return 3
+
+jogador -> jogo ++: causarDano(40)
+	jogo -> jogo ++: setSaude(-40)
+	deactivate
+deactivate
+
+jogador -> jogo ++: getSaude()
+return 100
+
+jogador -> jogo ++: getVidas()
+return 2
+
+jogador -> armazenador ++: recuperar()
+return memento
+
+jogador -> jogo ++: restaurar(memento)
+	jogo -> memento ++: getVidas()
+	return vidas
+	
+	jogo -> jogo ++: setVidas(vidas)
+	deactivate
+	
+	jogo -> memento ++: getSaude()
+	return saude
+	
+	jogo -> jogo ++: setSaude(saude)
+	deactivate
+deactivate
+
+jogador -> jogo ++: getSaude()
+return 100
+
+jogador -> jogo ++: getVidas()
+return 3
+
+@enduml

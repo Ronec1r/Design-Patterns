@@ -1,0 +1,22 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "Ingresso: Ingresso 1" as ingresso1
+participant "Ingresso: Ingresso 2" as ingresso2
+participant "EstrategiaEstudante" as estrategia1
+participant "Estrategiantegral" as estrategia2
+
+cliente -> ingresso1 **: new Ingresso(100.0, EstrategiaEstudante)
+cliente -> ingresso1 ++: calcularValor()
+	ingresso1 -> estrategia1 ++: calcularDesconto()
+	return 0.5
+return 50.0
+
+cliente -> ingresso2 **: new Ingresso(100.0, EstrategiaIntegral)
+cliente -> ingresso2 ++: calcularValor()
+	ingresso2 -> estrategia2 ++: calcularDesconto()
+	return 1.0
+return 100.0
+@enduml

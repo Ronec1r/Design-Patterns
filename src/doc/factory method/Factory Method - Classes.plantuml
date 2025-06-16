@@ -1,0 +1,20 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+interface Personagem << Product >>{
+    + atacar(): String
+    + defender(): String
+    + usarMagia(): String
+}
+
+class Anao << Concrete Product >> implements Personagem
+class Elfo << Concrete Product >> implements Personagem
+class Orc << Concrete Product >> implements Personagem
+class Humano << Concrete Product >> implements Personagem
+
+class FabricaPersonagens << Creator >> {
+    + criarPersonagem(String): Personagem
+}
+
+FabricaPersonagens --> Personagem : cria
+@enduml

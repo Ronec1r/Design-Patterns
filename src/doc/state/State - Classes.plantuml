@@ -1,0 +1,30 @@
+@startuml
+skinparam ClassBackgroundColor white
+skinparam Linetype ortho
+
+interface EstadoMario <<State>> {
+    + pegarCogumelo(Mario)
+    + pegarFlor(Mario)
+    + pegarPena(Mario)
+    + sofrerDano(Mario)
+    + obterAtque(): String
+    + obterEstado(): String
+}
+
+class Mario <<Context>> {
+    - estado: EstadoMario
+    + atacar(): String
+    + pegarCogumelo()
+    + pegarFlor()
+    + pegarPena()
+    + sofreDano()
+}
+
+class MarioPequeno <<Concrete State>> implements EstadoMario
+class MarioSuper <<Concrete State>>   implements EstadoMario
+class MarioFogo <<Concrete State>>    implements EstadoMario
+class MarioVoador <<Concrete State>>  implements EstadoMario
+class MarioMorto <<Concrete State>>   implements EstadoMario
+
+Mario --> EstadoMario : estado atual
+@enduml

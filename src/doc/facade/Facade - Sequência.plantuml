@@ -1,0 +1,21 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "Fachada" as fachada
+participant "GeradorID" as gerador
+participant "Repositorio<Cliente>" as repoCliente
+participant "Cliente" as entidadeCliente
+
+cliente -> fachada ++: registrarCliente("João")
+	fachada -> gerador ++: gerarClienteID()
+	return "Cli0001"
+
+	fachada -> entidadeCliente **: new Cliente("Cli0001", "João")
+	
+	fachada -> repoCliente ++: criar("Cli0001", entidadeCliente)
+	return OK
+
+return "Cli0001"
+@enduml

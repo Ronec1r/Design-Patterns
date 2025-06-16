@@ -1,0 +1,33 @@
+@startuml
+skinparam ClassBackgroundColor white
+skinparam NoteBackgroundColor white
+
+abstract class Bebida <<Abstract Class>> {
+    + obterPreparo(): List<String>
+    # {abstract} prepararIngredientes(): List<String>
+    - prepararXicara(): String
+    - prepararAguaQuente(): String
+}
+
+note left of Bebida::obterPreparo
+	preparo.adicionar(prepararXicara());
+	preparo.adicionar(prepararIngredientes());
+	preparo.adicionar(prepararAguaQuente());
+end note
+
+class Cafe <<Concrete Class>> {
+    # prepararIngredientes(): List<String>
+}
+
+class Cha <<Concrete Class>> {
+    # prepararIngredientes(): List<String>
+}
+
+class Cappuccino <<Concrete Class>> {
+    # prepararIngredientes(): List<String>
+}
+
+Bebida <|-- Cafe
+Bebida <|-- Cha
+Bebida <|-- Cappuccino
+@enduml

@@ -1,0 +1,37 @@
+@startuml
+skinparam ClassBackgroundColor white
+class Computador <<Product>>{
+    - processador: String
+    - RAM: int
+    - HD: int
+    + Computador(String, int, int)
+    + getters()
+}
+
+interface Construtor << Builder >>{
+    + obterResultado(): Computador
+    + definirProcessador(String)
+    + definirRAM(int)
+    + definirArmazenamento(int)
+}
+
+class ConstrutorComputador <<Concrete Builder>> implements Construtor {
+    - processador: String
+    - RAM: int
+    - HD: int
+    + obterResultado(): Computador
+    + definirProcessador(String)
+    + definirRAM(int)
+    + definirArmazenamento(int)
+}
+
+class Loja << Director >> {
+    - construtor: Construtor
+    + construirNotebookGamer(): Computador
+    + construirNotebook(): Computador
+    + construirNotebookUltra(): Computador
+}
+
+Loja -right-> Construtor : usa
+ConstrutorComputador --> Computador : constrói
+@enduml

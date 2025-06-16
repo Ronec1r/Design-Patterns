@@ -1,0 +1,29 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "Café: Café Puro" as cafe
+participant "Leite: Leite com Café" as leite
+participant "Creme: Creme com Leite com Café" as creme
+
+
+cliente -> cafe **: new Cafe()
+cliente -> cafe ++: custo()
+return 4.0
+
+cliente -> leite **: new Leite(cafe)
+cliente -> leite ++: custo()
+	leite -> cafe ++: custo()
+	return 4.0
+return 4.5
+
+cliente -> creme **: new Creme(leite_cafe)
+cliente -> creme ++: custo()
+	creme -> leite ++: custo()
+		leite -> cafe ++: custo()
+		return 4.0
+	return 4.5
+return 5.5
+
+@enduml

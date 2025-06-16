@@ -1,0 +1,29 @@
+@startuml
+skinparam ClassBackgroundColor white
+interface Repositorio <<Client Interface>>{
+    + obterAlunos(): Map<String, String>
+}
+
+class RepositorioLista {
+    - arquivo: String
+    + recuperarDados(): List<String>
+}
+
+class RepositorioString {
+    - arquivo: String
+    + recuperarDados(): String
+}
+
+class AdaptadorLista <<Adapter>> implements Repositorio {
+    - repositorio: RepositorioLista
+    + obterAlunos(): Map<String, String>
+}
+
+class AdaptadorString <<Adapter>> implements Repositorio {
+    - repositorio: RepositorioString
+    + obterAlunos(): Map<String, String>
+}
+
+AdaptadorLista  -l-> RepositorioLista
+AdaptadorString -r-> RepositorioString  
+@enduml

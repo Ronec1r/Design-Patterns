@@ -1,0 +1,87 @@
+@startuml
+skinparam ClassBackgroundColor white
+skinparam NoteBackgroundColor white
+
+abstract class Expressao {
+  + {abstract} interpretar(): boolean
+}
+
+abstract class ExpressaoTerminal<G> {
+  -contexto: G
+}
+
+class Variavel<G extends Comparable<? super G>> {
+  -nome: String
+  +getValor(): G
+  +interpretar(): boolean
+}
+
+class Executavel {
+	- comando: Comando
+  	+interpretar(): boolean
+}
+
+note left of Executavel::interpretar()
+	comando.executar()
+end note
+
+abstract class ExpressaoNaoTerminal {
+  -expressoes: List<Expressao>
+}
+
+abstract class ExpressaoRelacional<T extends Comparable<? super T>> {
+  - nome: String
+  - termo1: Variavel
+  - termo2: Variavel
+}
+
+class ExpressaoCondicional {
+	- expressao: Expressao 
+	- relacao: ExpressaoRelacional
+  	+ interpretar(): boolean
+}
+
+note left of ExpressaoCondicional::interpretar()
+	if (relacao.interpretar()) {
+		expressao.interpretar()
+	}
+end note
+
+
+class ExpressaoSequencial {
+  + interpretar(): boolean
+  + adicionar(expressao): void
+}
+
+note left of ExpressaoSequencial::interpretar()
+	for (Expressao e: expressoes) {
+		e.interpretar()
+	}
+end note
+
+class ExpressaoMaior {
+	  +interpretar(): boolean
+}
+
+note left of ExpressaoMaior::interpretar()
+	termo1 > termo2
+end note
+
+class ExpressaoIgual {
+	  +interpretar(): boolean
+}
+
+note left of ExpressaoIgual::interpretar()
+	termo1 == termo2
+end note
+
+Expressao <|-- ExpressaoTerminal
+Expressao <|-- ExpressaoNaoTerminal
+ExpressaoTerminal <|-- Variavel
+ExpressaoTerminal <|-- Executavel
+ExpressaoNaoTerminal <|-- ExpressaoRelacional
+ExpressaoRelacional <|-- ExpressaoMaior
+ExpressaoRelacional <|-- ExpressaoIgual
+ExpressaoNaoTerminal <|-- ExpressaoCondicional
+ExpressaoNaoTerminal <|-- ExpressaoSequencial
+@enduml

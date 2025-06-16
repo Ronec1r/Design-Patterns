@@ -1,0 +1,42 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+
+participant "ArquivoProxy" as proxy
+participant "ArquivoReal" as real
+participant "Permissao" as permissao
+
+cliente -> permissao **: new Permissao(leitura = true, escrita = false)
+
+cliente -> proxy **: new ArquivorProxy(nomeArquivo, permissao)
+activate proxy
+	proxy -> real **: new Arquivo(nomeArquivo)
+deactivate
+
+cliente -> proxy ++: escrever("Texto")
+	proxy -> permissao ++: podeEscrever()
+	return reposta
+	alt permissão concedida
+			
+		proxy --> real ++: escrever("Texto")
+		deactivate
+	else permissão negada
+		return erro
+	end
+
+cliente -> proxy ++: recuperar()
+	proxy -> permissao ++: podeLer()
+	return resposta
+	
+	alt permissão concedida
+			
+		proxy -> real ++: recuperar()
+		return texto
+	proxy --> cliente: texto
+	else permissão negada
+		
+		return erro
+	end
+@enduml

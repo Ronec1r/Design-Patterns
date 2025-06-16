@@ -1,0 +1,33 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+interface Observador <<Observer>> {
+    + atualizar(Sujeito): void
+}
+
+abstract class Sujeito <<Subject>> {
+    - observadores: List<Observador>
+    + inscrever(Observador): void
+    + remover(Observador): void
+    + notificar(): void
+}
+
+class Produto <<Concrece Subject>> {
+    - nome: String
+    - quantidade: int
+    + adicionar(int): void
+    + remover(int): void
+    + estaDisponivel(): boolean
+}
+
+class Cliente <<Concrete Observer>> {
+    - nome: String
+    - pedidos: List<String>
+    + comprar(Produto): void
+}
+
+Sujeito <|-d- Produto
+Observador <|.d. Cliente
+Sujeito  -r-> "*" Observador: observadores
+Cliente -l> Produto: sujeito
+@enduml

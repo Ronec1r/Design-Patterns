@@ -1,0 +1,35 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "Aeronave: Aeronave 1" as aeronave1 
+participant ControladorTrafego as mediador
+participant Metereologia as metereologia
+participant Oficina as oficina
+
+cliente -> aeronave1 ++: solicitarDecolagem()
+	aeronave1 -> mediador ++: notificar(this, "decolagem")
+		mediador -> metereologia ++: condicoesFavoraveis()
+			return resposta
+		
+		break condicoes desfavoráveis
+			mediador -> mediador ++: addListaEspera(aeronave1)
+			deactivate
+			mediador --> aeronave1: "Decolagem negada: metereologia!"
+			aeronave1 --> cliente: "Decolagem negada:  metereologia!"
+		end
+		
+		mediador -> oficina ++: necessitaManutencao(aeronave1)
+			return resposta
+		
+		break manutenção necessária
+			mediador -> mediador ++: addListaEspera(aeronave1)
+			deactivate
+			mediador --> aeronave1: "Decolagem negada: manutenção!"
+			aeronave1 --> cliente: "Decolagem negada: manutenção!"
+		end
+	return "Decolagem autorizada!"
+return "Decolagem autorizada!"
+	
+@enduml

@@ -1,0 +1,27 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "AdaptadorLista" as adapter
+participant "RepositorioLista" as repoLista
+
+participant "AdaptadorString" as adapter2
+participant "RepositorioString" as repoString
+
+cliente -> adapter ++: obterAlunos()
+	adapter -> repoLista ++: recuperarDados()
+	return alunos = List<String>
+
+	adapter -> adapter ++: adaptarDados(alunos)
+	return Map<String, String>
+return Map<String, String>
+
+cliente -> adapter2 ++: obterAlunos()
+	adapter2 -> repoString ++: recuperarDados()
+	return alunos = String
+
+	adapter2 -> adapter2 ++: adaptarDados(alunos)
+	return Map<String, String>
+return Map<String, String>
+@enduml

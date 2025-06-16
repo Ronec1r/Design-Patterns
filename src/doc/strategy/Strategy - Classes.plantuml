@@ -1,0 +1,19 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+interface EstrategiaDesconto <<Strategy>> {
+    + calcularDesconto(): double
+}
+
+class EstrategiaIntegral <<Concrete Strategy>> implements EstrategiaDesconto
+class EstrategiaEstudante <<Concrete Strategy>> implements EstrategiaDesconto
+class EstrategiaDiaPais <<Concrete Strategy>> implements EstrategiaDesconto
+
+class Ingresso <<Context>> {
+    - valor: double
+    - estrategia: EstrategiaDesconto
+    + calcularValor(): double
+}
+
+Ingresso o-r-> EstrategiaDesconto : usa
+@enduml

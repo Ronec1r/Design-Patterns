@@ -1,0 +1,33 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant AnalistaRisco as risco
+participant AnalistaCredito as credito
+participant Gerente as gerente
+participant RequisicaoEmprestimo as requisicao
+participant Emprestimo as emprestimo
+
+cliente -> requisicao **: new Requisicao(valor, renda, score)
+
+cliente -> risco ++: processarRequisição(requisicao)
+
+	break Score < 700
+		risco --> cliente: "Reprovado: Score baixo"
+	end
+
+	risco -> credito ++: processarRequisição(requisicao)
+
+		break Valor > 30% da renda
+			credito --> cliente: "Reprovado: Renda insuficiente"
+		end
+    
+		credito -> gerente ++: processarRequisição(requisicao)
+			gerente -> emprestimo **: new Emprestimo(valor)
+		return emprestimo
+	
+	return emprestimo
+
+return emprestimo
+@enduml

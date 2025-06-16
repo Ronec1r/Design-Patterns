@@ -1,0 +1,59 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+interface Comando <<Command>> {
+    + executar(): void
+}
+
+class LigarTV <<Concrete Command>> {
+    - tv: Televisao
+    + executar(): void
+}
+
+class DesligarTV <<Concrete Command>> {
+    - tv: Televisao
+    + executar(): void
+}
+
+class DesligarLuz <<Concrete Command>> {
+    - luz: Luz
+    + executar(): void
+}
+
+class LigarLuz <<Concrete Command>> {
+    - luz: Luz
+    + executar(): void
+}
+
+class ControleRemoto <<Invoker>> {
+    - comando: Comando
+    + pressionarBotao(): void
+    + definirComando(Comando): void
+}
+
+class Televisao <<Receiver>> {
+    - ligada: boolean
+    + ligar(): void
+    + desligar(): void
+}
+
+class Luz <<Receiver>> {
+    - ligada: boolean
+    + ligar(): void
+    + desligar(): void
+}
+
+Comando <|.. LigarTV
+Comando <|.. DesligarTV
+
+Comando <|.. LigarLuz
+Comando <|.. DesligarLuz
+
+ControleRemoto -r-> Comando: executa
+
+LigarTV --> Televisao: comanda
+DesligarTV --> Televisao: comanda
+
+LigarLuz --> Luz: comanda
+DesligarLuz --> Luz: comanda
+@enduml

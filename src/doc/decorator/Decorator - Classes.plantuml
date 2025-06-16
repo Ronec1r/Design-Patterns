@@ -1,0 +1,44 @@
+@startuml
+skinparam ClassBackgroundColor white
+skinparam Linetype ortho
+together {
+	interface Component <<Component>> {
+	    + custo(): double
+	    + getDescricao(): String
+	}
+	
+	class Cafe <<Concrete Component>>{
+	    + custo(): double
+	    + getDescricao(): String
+	}
+	
+
+}
+	abstract class Decorator <<Base Decorator>> {
+    - component: Component
+    + Decorator(Component)
+}
+
+
+class Leite <<Concrete Decorator>> {
+    + custo(): double
+    + getDescricao(): String
+}
+
+class Acucar <<Concrete Decorator>> {
+    + custo(): double
+    + getDescricao(): String
+}
+
+class Creme <<Concrete Decorator>> {
+    + custo(): double
+    + getDescricao(): String
+}
+
+Component <|-d- Cafe
+Component <|-l- Decorator
+Decorator <|-d- Leite
+Decorator <|-d- Acucar
+Decorator <|-d- Creme
+Decorator o-d-> Component: component
+@enduml

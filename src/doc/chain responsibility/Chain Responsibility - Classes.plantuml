@@ -1,0 +1,38 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+abstract class Analisador <<Handler>> {
+    - sucessor: Analisador
+    + {abstract} processarRequisição(RequisicaoEmprestimo): Emprestimo
+    + definirSucessor(Analisador): void
+}
+
+class AnalistaRisco <<Concrete Handlers>> {
+    + processarRequisição(RequisicaoEmprestimo): Emprestimo
+}
+
+class AnalistaCredito <<Concrete Handlers>> {
+    + processarRequisição(RequisicaoEmprestimo): Emprestimo
+}
+
+class Gerente <<Concrete Handlers>> {
+    + processarRequisição(RequisicaoEmprestimo): Emprestimo
+}
+
+class RequisicaoEmprestimo <<Request>>{
+    - valor: double
+    - renda: double
+    - scoreCredito: int
+}
+
+class Emprestimo <<Response>> {
+    - valor: double
+}
+
+Analisador o-> Analisador: sucessor
+Analisador <|-- AnalistaRisco
+Analisador <|-- AnalistaCredito
+Analisador <|-- Gerente
+Analisador -l-> RequisicaoEmprestimo: processa
+Analisador -u-> Emprestimo: gera
+@enduml

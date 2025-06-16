@@ -1,0 +1,52 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+interface Agregador <<Iterable Collection>> {
+    + criarIterador(): Iterador
+}
+
+interface Iterador <<Iterator>> {
+    + proximo(): G
+    + temProximo(): boolean
+}
+
+class PlaylistMusicas <<Concrete Collection>> {
+    - musicas: List<Musica>
+    + criarIterador(): Iterador<Musica>
+}
+
+class PlaylistArtistas <<Concrete Collection>> {
+    - musicas: Map<String, List<Musica>>
+    + criarIterador(): Iterador<Musica>
+}
+
+class IteradorMusicas <<Concrete Iterator>> {
+    - playlist: List<Musica>
+    + proximo(): Musica
+    + temProximo(): boolean
+}
+
+class IteradorArtistas <<Concrete Iterator>> {
+    - playlist: List<Musica>
+    + proximo(): Musica
+    + temProximo(): boolean
+}
+
+class Musica {
+    - titulo: String
+    - artista: String
+}
+
+Agregador -l-> Iterador: cria
+
+Agregador <|-d- PlaylistMusicas
+Agregador <|-u- PlaylistArtistas
+Iterador  <|-d- IteradorMusicas
+Iterador  <|-u- IteradorArtistas
+
+PlaylistMusicas -l-> IteradorMusicas
+PlaylistArtistas -l-> IteradorArtistas
+
+PlaylistMusicas o-u-> "*" Musica: possui
+PlaylistArtistas o-d-> "*" Musica: possui
+@enduml

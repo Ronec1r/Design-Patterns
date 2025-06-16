@@ -1,0 +1,19 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor  white
+actor Cliente as cliente
+participant "MestreMagos" as mestre << Singleton >>
+
+cliente -> mestre ++: obterInstancia()
+	alt instancia == null
+    	mestre -> mestre: new MestreMagos()
+	end
+return instância existente
+
+cliente -> mestre ++: elevarNivel()
+deactivate
+
+cliente -> mestre ++: getNivelMagia()
+return nivelMagia
+
+@enduml

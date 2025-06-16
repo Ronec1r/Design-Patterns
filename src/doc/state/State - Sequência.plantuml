@@ -1,0 +1,50 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "Mario" as mario
+participant "EstadoMario: MarioPequeno" as marioPequeno
+participant "EstadoMario: MarioSuper" as marioSuper
+participant "EstadoMario: MarioFogo" as marioFogo
+
+
+
+cliente -> mario **: new Mario()
+activate mario
+	mario -> marioPequeno **: new MarioPequeno()
+	mario -> mario ++: setEstado(marioPequeno)
+	deactivate
+deactivate
+
+cliente -> mario ++: atacar()
+	mario -> marioPequeno ++: atacar()
+	return "salto"
+return "salto"
+	
+cliente -> mario ++: pegarCogumelo()
+	mario -> marioPequeno ++: pegarCogumelo(this)
+		marioPequeno -> marioSuper **: new MarioSuper()
+		marioPequeno -> mario ++: setEstado(marioSuper) 
+		deactivate
+	deactivate
+deactivate
+
+cliente -> mario ++: atacar()
+	mario -> marioSuper ++: atacar()
+	return "super salto"
+return "super salto"
+
+cliente -> mario ++: pegarFlor()
+	mario -> marioSuper ++: pegarFlor(this)
+		marioSuper -> marioFogo **: new MarioFogo()
+		marioSuper -> mario ++: setEstado(marioSuper) 
+		deactivate
+	deactivate
+deactivate
+
+cliente -> mario ++: atacar()
+	mario -> marioFogo ++: atacar()
+	return "bola de fogo"
+return "bola de fogo"
+@enduml

@@ -1,0 +1,44 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+interface Mediador <<Mediator>> {
+    + notificar(Colaborador, String): String
+}
+
+class ControladorTrafego <<Concrete Mediator>> {
+    - pousos: List<Aeronave>
+    - decolagens: List<Aeronave>
+    - metereologia: Metereologia
+    - oficina: Oficina
+    + notificar(Colaborador, String): String
+}
+
+abstract class Colaborador <<Colleague>> {
+    # mediador: Mediador
+}
+
+class Aeronave <<Concrete Colleague>> {
+    - identificador: String
+    + solicitarPouso(): String
+    + solicitarDecolagem(): String
+}
+
+class Metereologia <<Concrete Colleague>> {
+    - condicoesFavoraveis: boolean
+    + informarCondicoes(): String
+}
+
+class Oficina <<Concrete Colleague>> {
+    - manutencao: List<Aeronave>
+    + necessitaManutencao(Aeronave): boolean
+}
+
+Mediador <|.d. ControladorTrafego
+Colaborador o-l-> Mediador
+Colaborador <|-- Aeronave
+Colaborador <|-d- Metereologia
+Colaborador <|-r- Oficina
+'ControladorTrafego --> Aeronave
+'ControladorTrafego --> Metereologia
+'ControladorTrafego --> Oficina
+@enduml

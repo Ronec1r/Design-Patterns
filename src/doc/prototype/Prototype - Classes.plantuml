@@ -1,0 +1,16 @@
+@startuml
+skinparam ClassBackgroundColor white
+interface Robo <<Prototype>>{
+    + clonar(): Robo
+}
+
+class RoboTanque <<Concrete Prototype>> implements Robo {
+    - forca: int
+    - velocidade: int
+    - armamento: String
+    + clonar(): Robo
+    + equals(): boolean
+    + hashCode(): int
+    + getters/setters()
+}
+@enduml

@@ -1,0 +1,78 @@
+@startuml
+skinparam ClassBackgroundColor  white
+
+	interface Botao <<Abstract Product>> {
+	    + obterCor(): String
+	}
+	
+	class BotaoClaro <<Concrete Product>> {
+    	+ obterCor(): String
+	}
+	
+	class BotaoEscuro <<Concrete Product>> {
+		+ obterCor(): String
+	}
+
+	interface Janela <<Abstract Product>> {
+	    + obterCor(): String
+	}
+	
+	class JanelaClara <<Concrete Product>> {
+ 	   + obterCor(): String
+	}
+
+	class JanelaEscura <<Concrete Product>> {
+	    + obterCor(): String
+	}
+
+	interface Menu <<Abstract Product>> {
+ 	   + obterCor(): String
+	}
+	
+	class MenuClaro <<Concrete Product>> {
+    	+ obterCor(): String
+	}
+
+	class MenuEscuro <<Concrete Product>> {
+    	+ obterCor(): String
+	}
+
+	interface FabricaInterfaceGrafica <<Abstract Factory>> {
+	    + criarJanela(): Janela
+	    + criarBotao(): Botao
+	    + criarMenu(): Menu
+	}
+	
+	class TemaEscuro <<Concrete Factory>> {
+	 	+ criarJanela(): Janela
+	    + criarBotao(): Botao
+	    + criarMenu(): Menu
+	}
+	
+	class TemaClaro <<Concrete Factory>> {
+	 	+ criarJanela(): Janela
+	    + criarBotao(): Botao
+	    + criarMenu(): Menu
+	}
+
+' Tema Claro
+TemaClaro 	.up.|> FabricaInterfaceGrafica
+BotaoClaro  .up.|> Botao
+JanelaClara .up.|> Janela
+MenuClaro   .up.|> Menu
+
+' Tema Escuro
+TemaEscuro 	 .down.|> FabricaInterfaceGrafica
+BotaoEscuro  .down.|> Botao
+JanelaEscura .down.|> Janela
+MenuEscuro 	 .down.|> Menu
+
+' Relações
+TemaClaro -u-> BotaoClaro
+TemaClaro -u-> JanelaClara
+TemaClaro -u-> MenuClaro
+
+TemaEscuro -d-> BotaoEscuro
+TemaEscuro -d-> JanelaEscura
+TemaEscuro -d-> MenuEscuro
+@enduml

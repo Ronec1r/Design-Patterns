@@ -1,0 +1,35 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "Combo" as combo
+participant "Item: Refrigerante" as item1
+participant "Item: Batata frita" as item2
+participant "Item: Hamburger" as item3
+
+cliente -> item1** : new("Refrigerante", 7.0)
+cliente -> item2** : new("Batata Frita", 10.0)
+cliente -> item3** : new("Hamburguer", 12.0)
+
+cliente -> combo** : new Combo()
+cliente -> combo ++: adicionar(refrigerante)
+deactivate
+cliente -> combo ++: adicionar(batataFrita)
+deactivate
+cliente -> combo ++: adicionar(hamburguer)
+deactivate
+
+
+cliente -> combo ++: calcularPreco()
+	combo -> item1 ++: calcularPreco()
+	return total += 7.0
+
+	combo -> item2 ++: calcularPreco()
+	return total += 10.0
+	
+	combo -> item3 ++: calcularPreco()
+	return total += 12.0
+
+return total
+@enduml

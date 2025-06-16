@@ -1,0 +1,50 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Sistema as sistema
+participant Cigarro as cigarro
+participant Alimento as alimento
+participant TaxadorFederal as taxadorFed
+participant TaxadorInsencao as taxadorIns
+
+== Taxador Padrão ==
+
+sistema -> taxadorFed **: new()
+sistema -> cigarro **: new Cigarro(4.0)
+
+sistema -> cigarro ++: aceitar(taxadorFederal)
+	cigarro -> taxadorFed ++: visitar(alimento)
+		taxadorFed -> cigarro++: getCusto()
+		return 10.0
+	return 10.0 * 1.11
+return 11.1
+
+sistema -> alimento **: new Alimento(10.0)
+
+sistema -> alimento ++: aceitar(taxadorFederal)
+	alimento -> taxadorFed ++: visitar(alimento)
+		taxadorFed -> alimento++: getCusto()
+		return 4.0
+	return 4.0 * 2.50
+return 10.0
+
+== Taxador Isenção Alimentos ==
+
+sistema -> taxadorIns **: new()
+
+sistema -> cigarro ++: aceitar(taxadorFederal)
+	cigarro -> taxadorIns ++: visitar(alimento)
+		taxadorIns -> cigarro++: getCusto()
+		return 10.0
+	return 10.0 * 1.0
+return 10.0
+
+
+sistema -> alimento ++: aceitar(taxadorFederal)
+	alimento -> taxadorIns ++: visitar(alimento)
+		taxadorIns -> alimento++: getCusto()
+		return 4.0
+	return 4.0 * 2.50
+return 10.0
+@enduml

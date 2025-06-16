@@ -1,0 +1,53 @@
+@startuml
+skinparam ClassBackgroundColor white
+
+abstract class Mercadoria <<Element>> {
+    - custo: double
+    + aceitar(Taxador): double
+}
+
+class Alimento <<Concrete Element>> {
+    + aceitar(Taxador): double
+}
+
+class Cerveja <<Concrete Element>> {
+    + aceitar(Taxador): double
+}
+
+class Cigarro <<Concrete Element>> {
+    + aceitar(Taxador): double
+}
+
+class Vinho <<Concrete Element>> {
+    + aceitar(Taxador): double
+}
+
+interface Taxador <<Visitor>> {
+    + visitar(Alimento): double
+    + visitar(Cerveja): double
+    + visitar(Cigarro): double
+    + visitar(Vinho): double
+}
+
+class TaxadorFederal <<Concrete Visitor>> {
+    + visitar(Alimento): double
+    + visitar(Cerveja): double
+    + visitar(Cigarro): double
+    + visitar(Vinho): double
+}
+
+class TaxadorIsencao <<Concrete Visitor>> {
+    + visitar(Alimento): double
+    + visitar(Cerveja): double
+    + visitar(Cigarro): double
+    + visitar(Vinho): double
+}
+
+Mercadoria <|-- Alimento
+Mercadoria <|-- Cerveja
+Mercadoria <|-- Cigarro
+Mercadoria <|-- Vinho
+Taxador <|.. TaxadorFederal
+Taxador <|.. TaxadorIsencao
+Mercadoria -r-> Taxador: aceita
+@enduml

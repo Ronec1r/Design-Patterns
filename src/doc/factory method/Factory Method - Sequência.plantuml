@@ -1,0 +1,23 @@
+@startuml
+skinparam ActorBackgroundColor white
+skinparam ParticipantBackgroundColor white
+
+actor Cliente as cliente
+participant "FabricaPersonagens" as fabrica
+participant "Elfo" as elfo
+participant "Orc" as orc
+
+cliente -> fabrica ++: criarPersonagem("elfo")
+	fabrica -> elfo **: new Elfo()
+return instância de Elfo
+
+cliente -> elfo ++: atacar()
+return "Ataque: arco e flecha"
+
+cliente -> fabrica ++: criarPersonagem("orc")
+	fabrica -> orc **: new Orc()
+return instância de Orc
+
+cliente -> orc ++: atacar()
+return "Ataque: garras"
+@enduml
