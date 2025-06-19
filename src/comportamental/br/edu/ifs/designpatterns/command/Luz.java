@@ -18,4 +18,8 @@ public class Luz {
     public boolean estaLigada(){
         return this.ligada;
     }
+
+    public String getNome() {
+        return nome;
+    }
 }

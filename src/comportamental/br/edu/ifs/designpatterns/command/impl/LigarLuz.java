@@ -15,4 +15,9 @@ public class LigarLuz implements Comando {
     public void executar() {
         this.luz.ligar();
     }
+
+    @Override
+    public String toString() {
+        return "ligar " + luz.getNome();
+    }
 }

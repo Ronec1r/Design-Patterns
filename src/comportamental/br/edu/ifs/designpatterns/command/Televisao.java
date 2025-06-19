@@ -27,4 +27,8 @@ public class Televisao {
     public void setCanal(int canal) {
         this.canal = canal;
     }
+
+    public String getNome() {
+        return nome;
+    }
 }
